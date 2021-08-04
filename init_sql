@@ -1,0 +1,10 @@
+CREATE DATABASE NF;
+
+USE NF;
+
+CREATE TABLE articles(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    price DECIMAL(5,2),
+    ref VARCHAR(200)
+);
