@@ -17,12 +17,11 @@ def connect_to_db(
     Returns:
         DB connection
     """
-    db_connection = create_engine(
+    return create_engine(
         "mysql+mysqlconnector://{0}:{1}@{2}/{3}".format(
             db_username, db_password, db_ip, db_name
         )
     )
-    return db_connection
 
 
 def write_articles_to_sql(df: DataFrame, con: Engine, table: str) -> None:

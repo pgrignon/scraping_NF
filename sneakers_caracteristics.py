@@ -1,6 +1,3 @@
-from bs4 import BeautifulSoup  # type: ignore
-
-
 def get_sneaker_price(sneaker: str) -> float:
     """
     Get the price of a sneaker
@@ -11,7 +8,7 @@ def get_sneaker_price(sneaker: str) -> float:
         The price of a sneaker
     """
     price: str = (
-        sneaker.find(class_="grid-product__price") # type: ignore
+        sneaker.find(class_="grid-product__price")  # type: ignore
         .get_text()
         .replace("\n", "")
         .replace("€", "")
@@ -33,7 +30,7 @@ def get_sneaker_name(sneaker: str) -> str:
     """
     return sneaker.find(
         class_="grid-product__title grid-product__title--body"
-    ).get_text() # type: ignore
+    ).get_text()  # type: ignore
 
 
 def get_sneaker_href(sneaker: str) -> str:
@@ -45,4 +42,4 @@ def get_sneaker_href(sneaker: str) -> str:
     Returns:
         The href link to the sneaker product
     """
-    return sneaker.find("a").get("href") # type: ignore
+    return sneaker.find("a").get("href")  # type: ignore
