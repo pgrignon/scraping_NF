@@ -7,7 +7,7 @@ from core.sneakers_caracteristics import (
     get_sneaker_name,
     get_sneaker_href,
 )
-from global_variables import URL
+from core.global_variables import URL
 
 
 def get_sneakers(url: str = URL) -> pd.DataFrame:
