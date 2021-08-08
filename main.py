@@ -1,4 +1,4 @@
-from sneakers_global import get_sneakers
+from core.sneakers_global import get_sneakers
 
 if __name__ == "__main__":
     sneakers = get_sneakers()

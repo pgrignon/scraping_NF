@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup  # type: ignore
 import pandas as pd
 import requests
 
-from sneakers_caracteristics import (
+from core.sneakers_caracteristics import (
     get_sneaker_price,
     get_sneaker_name,
     get_sneaker_href,
