@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup  # type: ignore
 import requests
 from typing import List, Dict
+import pandas as pd
 
 
 def concatenate_description(descr_list: List) -> str:
@@ -27,6 +28,10 @@ def get_availability_size(size: str) -> bool:
     return "disabled" not in size.get("class")  # type: ignore
 
 
+def init_sizes_dict() -> Dict[int, List[bool]]:
+    return {i: [False] for i in range(30, 50)}
+
+
 def parse_size_value(size: str) -> int:
     """
     Parses the available size value
@@ -36,7 +41,7 @@ def parse_size_value(size: str) -> int:
     Returns:
         The size downgraded if it is multi
     """
-    return int(size.get("value").split("/")[0])  # type: ignore
+    return int(size.get("value")[:2])  # type: ignore
 
 
 def get_description(url: str) -> str:
@@ -57,7 +62,7 @@ def get_description(url: str) -> str:
     return concatenate_description(a)
 
 
-def get_sizes(url: str) -> Dict[int, bool]:
+def get_sizes(url: str, pid: str) -> pd.DataFrame:
     """
     Gets the sizes available for a sneaker
     --------------
@@ -70,7 +75,8 @@ def get_sizes(url: str) -> Dict[int, bool]:
     html = req.text
     soup = BeautifulSoup(html, "html.parser")
     sizes = soup.find(class_="variant-input-wrap").find_all("input")
-    sizes_dict = {}
+    sizes_dict = init_sizes_dict()
     for size in sizes:
-        sizes_dict[parse_size_value(size)] = get_availability_size(size)
-    return sizes_dict
+        sizes_dict[parse_size_value(size)] = [get_availability_size(size)]
+    sizes_dict["PID"] = pid  # type: ignore
+    return pd.DataFrame(sizes_dict)
